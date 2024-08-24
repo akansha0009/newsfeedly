@@ -1,24 +1,35 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
+import AppHeader from './components/Header';
+import SignUp from './components/SignUp';
+import SignIn from './components/SignIn';
+import NewsArticles from './components/NewsArticles';
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const handleLogin = () => {
+    setIsAuthenticated(true);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <AppHeader />
+        <Routes>
+          <Route path="/" element={<Navigate to="/signup" />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/signin" element={<SignIn onLogin={handleLogin} />} />
+          <Route
+            path="/articles"
+            element={
+              isAuthenticated ? <NewsArticles /> : <Navigate to="/signin" />
+            }
+          />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

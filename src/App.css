@@ -1,5 +1,22 @@
 .App {
+  position: relative;
   text-align: center;
+  background: url('https://www.shutterstock.com/shutterstock/videos/1016923906/thumb/1.jpg?ip=x480') no-repeat center center fixed;
+  background-size: cover;
+  min-height: 100vh;
+  color: white; 
+  overflow: hidden; /* Ensure that pseudo-element does not cause scrollbars */
+}
+
+.App::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3); 
+  z-index: -1; 
 }
 
 .App-logo {
